@@ -1,7 +1,7 @@
 const SLICE_COUNT = 18;
 
 function setup_pScope(pScope){
-  pScope.output_mode(OUTPUT_GIF(1000));
+  pScope.output_mode(ANIMATED_DISK);
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(false);
   pScope.set_direction(CW);
@@ -59,11 +59,11 @@ function faces(x, y, animation, pScope){
   endShape(CLOSE);
 stroke(0)
 
-  let goblinNoseX = [x-24, x+77, x+80, x+74, x+57, x+28, x+11, x+7, x+8]; //change name to goblinNoseX later 
-  let goblinNoseY = [y-47, y-32, y-27, y-24, y-22, y-2, y+5, y+9, y+15]; //change name to goblinNoseY later
+  let goblinNoseX = [x-24, x+77, x+80, x+74, x+57, x+28, x+11, x+7, x+8, x+8]; //change name to goblinNoseX later 
+  let goblinNoseY = [y-47, y-32, y-27, y-24, y-22, y-2, y+5, y+9, y+15, y+15]; //change name to goblinNoseY later
 
-  let humanNoseX = [x+5, x+7, x+9, x+12, x+13, x+11, x+8, x+4, x];
-  let humanNoseY = [y-7, y, y+5, y+10, y+12, y+14, y+16, y+19, y+15]
+  let humanNoseX = [x+5, x+7, x+9, x+12, x+13, x+11, x+8, x+4, x, x];
+  let humanNoseY = [y-7, y, y+5, y+10, y+12, y+14, y+16, y+19, y+15, y+15]
   
   let morphNoseY = []
   for(let i = 0; i <=humanNoseY.length; i++ ){
@@ -80,14 +80,14 @@ stroke(0)
   for(let i = 0; i <=morphNoseY.length; i++ ){
     curveVertex( morphNoseX[i],morphNoseY[i])
   }
-  curveVertex( morphNoseX[9],morphNoseY[9])
+  
   endShape();
 
-  let goblinULipX = [x-3, x+8, x+7, x+8, x-3, x-12, x-17]; //Upper Lip
-  let goblinULipY = [y+23, y+15, y+18, y+20, y+25, y+29, y+26]; 
+  let goblinULipX = [x-3, x+8, x+7, x+8, x-3, x-12, x-17, x-17]; //Upper Lip
+  let goblinULipY = [y+23, y+15, y+18, y+20, y+25, y+29, y+26, y+26]; 
 
-  let humanULipX = [x+6, x+6, x+7, x+8, x+9, x-1, x-6];
-  let humanULipY = [y+18, y+20, y+22, y+26, y+28, y+31, y+32]
+  let humanULipX = [x+6, x+6, x+7, x+8, x+9, x-1, x-6, x-6];
+  let humanULipY = [y+18, y+20, y+22, y+26, y+28, y+31, y+32, y+32]
   
   let morphULipY = []
   for(let i = 0; i <=humanULipY.length; i++ ){
@@ -107,11 +107,23 @@ stroke(0)
   curveVertex( morphULipX[6],morphULipY[6])
   endShape();
 
-  let goblinLLipX = [x-17, x-10, x+7, x+7, x-8];  //Lower Lips
-  let goblinLLipY = [y+26, y+30, y+38, y+41, y+36]; 
+  beginShape(); //chin
+  curveVertex(x+6,y+41);
+  curveVertex(x+6,y+41);
+  curveVertex(x+8,y+44);
+  curveVertex(x+2,y+48);
+  curveVertex(x-11,y+46);
+  curveVertex(x-26,y+42);
+  curveVertex(x-33,y+35);
+  curveVertex(x-35,y+22);
+  curveVertex(x-35,y+22);
+  endShape();
 
-  let humanLLipX = [x-6, x, x+7, x+7, x+6];
-  let humanLLipY = [y+32, y+32, y+32, y+34, y+41]
+  let goblinLLipX = [x-17, x-10, x+7, x+7, x-8, x-8];  //Lower Lips
+  let goblinLLipY = [y+26, y+30, y+38, y+41, y+36, y+36]; 
+
+  let humanLLipX = [x-6, x, x+7, x+7, x+6, x+6];
+  let humanLLipY = [y+32, y+32, y+32, y+34, y+41, y+41]
   
   let morphLLipY = []
   for(let i = 0; i <=humanLLipY.length; i++ ){
@@ -128,19 +140,33 @@ stroke(0)
   for(let i = 0; i <=morphLLipY.length; i++ ){
     curveVertex( morphLLipX[i],morphLLipY[i])
   }
-  curveVertex( morphLLipX[4],morphLLipY[4])
+ 
   endShape();
 
-  beginShape();
-  curveVertex(x+6,y+41);
-  curveVertex(x+6,y+41);
-  curveVertex(x+8,y+44);
-  curveVertex(x+2,y+48);
-  curveVertex(x-11,y+46);
-  curveVertex(x-26,y+42);
-  curveVertex(x-33,y+35);
-  curveVertex(x-35,y+22);
-  curveVertex(x-35,y+22);
+
+
+  let goblinBrowX = [x-20, x-20, x+5, x+8, x+2, x+2];  //Brow
+  let goblinBrowY = [y-2, y-2, y-6, y-10, y-15, y-15]; 
+
+  let humanBrowX = [x-19, x-19, x+7, x+6, x-2,x-2];
+  let humanBrowY = [y-2, y-2, y-3, y-7, y-12, y-12]
+  
+  let morphBrowY = []
+  for(let i = 0; i <=humanBrowY.length; i++ ){
+  morphBrowY[i] = map(animation.wave(1),  0 , 1, humanBrowY[i], goblinBrowY[i])
+  }
+  let morphBrowX = []
+  for(let i = 0; i <=humanBrowX.length; i++ ){
+  morphBrowX[i] = map(animation.wave(1),  0 , 1, humanBrowX[i], goblinBrowX[i])
+  }
+
+
+  beginShape();// Brow
+  curveVertex( morphBrowX[0],morphBrowY[0])
+  for(let i = 0; i <=morphBrowY.length; i++ ){
+    curveVertex( morphBrowX[i],morphBrowY[i])
+  }
+  
   endShape();
 }
 
