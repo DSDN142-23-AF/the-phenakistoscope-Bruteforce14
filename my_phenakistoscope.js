@@ -53,17 +53,6 @@ function faces(x, y, animation, pScope){
   curveVertex( morphNoseX[9],morphNoseY[9])
   endShape();
 
-  /*beginShape();// upper lip
-  curveVertex(x-3,y+23);
-  curveVertex(x-3,y+23);
-  curveVertex(x+8,y+15);
-  curveVertex(x+7,y+18);
-  curveVertex(x+8,y+20);
-  curveVertex(x-3,y+25);
-  curveVertex(x-12,y+29);
-  curveVertex(x-17,y+26);
-  curveVertex(x-17,y+26);
-  endShape();*/
   let goblinULipX = [x-3, x+8, x+7, x+8, x-3, x-12, x-17]; 
   let goblinULipY = [y+23, y+15, y+18, y+20, y+25, y+29, y+26]; 
 
