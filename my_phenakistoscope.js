@@ -6,6 +6,7 @@ function setup_pScope(pScope){
   pScope.draw_layer_boundaries(false);
   pScope.set_direction(CW);
   pScope.set_slice_count(SLICE_COUNT);
+  pScope.load_image("Goblin Gums" , "PNG");
 }
 
 function setup_layers(pScope){
@@ -29,7 +30,10 @@ function faces(x, y, animation, pScope){
 
   let gumX = map(animation.wave(1), 0, 1,y-14,y-3)
   ellipse(gumX,y+30,38,24); // gums
+  scale(.1)
+  pScope.draw_image("Goblin Gums",gumX,y+30);
 
+  scale(10)
   fill(255,233,62)
   stroke(255,233,62)
   
