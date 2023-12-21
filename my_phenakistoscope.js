@@ -30,10 +30,9 @@ function faces(x, y, animation, pScope){
 
   let gumX = map(animation.wave(1), 0, 1,y-14,y-3)
   ellipse(gumX,y+30,38,24); // gums
-  scale(.1)
-  pScope.draw_image("Goblin Gums",gumX,y+30);
+  
 
-  scale(10)
+
   fill(255,233,62)
   stroke(255,233,62)
   
@@ -170,7 +169,28 @@ stroke(0)
   for(let i = 0; i <=morphBrowY.length; i++ ){
     curveVertex( morphBrowX[i],morphBrowY[i])
   }
+  endShape();
+
+  let goblinEarX = [x-37,x-37,x-55,x-65,x-79,x-81,x-76,x-58,x-40,x-36,x-36];
+  let goblinEarY = [y-6,y-6,y-11,y-17,y-18,y-17,y-10,y-1,y+5,y+13,y+13];
+
+  let humanEarX = [x-36,x-36,x-42,x-48,x-48,x-45,x-43,x-42,x-39,x-35,x-35];
+  let humanEarY = [y-2,y-2,y-4,y,y+7,y+10,y+11,y+14,y+16,y+13,y+13];
+
+  let morphEarY = []
+  for(let i = 0; i <=humanEarY.length; i++ ){
+  morphEarY[i] = map(animation.wave(1),  0 , 1, humanEarY[i], goblinEarY[i])
+  }
+  let morphEarX = []
+  for(let i = 0; i <=humanEarX.length; i++ ){
+  morphEarX[i] = map(animation.wave(1),  0 , 1, humanEarX[i], goblinEarX[i])
+  }
   
+  beginShape();// Ear
+  curveVertex( morphEarX[0],morphEarY[0])
+  for(let i = 0; i <=morphEarY.length; i++ ){
+    curveVertex( morphEarX[i],morphEarY[i])
+  }
   endShape();
 }
 
