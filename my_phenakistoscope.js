@@ -1,10 +1,10 @@
-const SLICE_COUNT = 18;
+const SLICE_COUNT = 16;
 
 function setup_pScope(pScope){
   pScope.output_mode(ANIMATED_DISK);
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(false);
-  pScope.set_direction(CW);
+  pScope.set_direction(CCW);
   pScope.set_slice_count(SLICE_COUNT);
   pScope.load_image("Goblin Gums" , "PNG");
 }
@@ -23,18 +23,73 @@ function setup_layers(pScope){
 }
 
 function faces(x, y, animation, pScope){
+
+  let anim = animation.wave(1);
+  let yellow = (255,233,62)
+
+  let colour1 = yellow
   translate(0,-850);
   //scale(animation.wave(0.5)*2);//
  scale(2)
+ strokeWeight(3)
+ fill(colour1)
+
+ let goblinNeckX = [x-55, x-64, x-85, x-87, x-83, x-71, x-59, x-55, x-53, x-38,x-33,x-27,x-27]; //Neck
+ let goblinNeckY = [y-1, y+6, y+28, y+32, y+38, y+47, y+61, y+63, y+59, y+47,y+36,y+33,y+41]; 
+
+ let humanNeckX = [x-60, x-62, x-75, x-76, x-70, x-55, x-39, x-35, x-34, x-24,x-20,x-29,x-19];
+ let humanNeckY = [y+1, y+28, y+56, y+60, y+64, y+69, y+78, y+78, y+74, y+58,y+45,y+11,y+11]; 
+ 
+ let morphNeckY = []
+ for(let i = 0; i <=humanNeckY.length; i++ ){
+ morphNeckY[i] = map(anim,  0 , 1, humanNeckY[i], goblinNeckY[i])
+ }
+ let morphNeckX = []
+ for(let i = 0; i <=humanNeckX.length; i++ ){
+ morphNeckX[i] = map(anim,  0 , 1, humanNeckX[i], goblinNeckX[i])
+ }
+
+
+ beginShape(); // neck
+ for(let i = 0; i <=morphNeckY.length; i++ ){
+   curveVertex( morphNeckX[i],morphNeckY[i])
+ }
+ 
+ endShape(CLOSE);
+
+ let goblinShoulderX = [x-125, x-128, x-107, x-93, x-55, x-32, x-20, x-24]; //Shoulder
+ let goblinShoulderY = [y+111, y+108, y+48, y+33, y+48, y+75, y+108, y+109]; 
+
+ let humanShoulderX = [x-110, x-112, x-91, x-77, x-40, x-26, x-4, x-8];
+ let humanShoulderY = [y+136, y+136, y+73, y+58, y+73, y+100, y+133, y+134];  
+ 
+ let morphShoulderY = []
+ for(let i = 0; i <=humanShoulderY.length; i++ ){
+ morphShoulderY[i] = map(anim,  0 , 1, humanShoulderY[i], goblinShoulderY[i])
+ }
+ let morphShoulderX = []
+ for(let i = 0; i <=humanShoulderX.length; i++ ){
+ morphShoulderX[i] = map(anim,  0 , 1, humanShoulderX[i], goblinShoulderX[i])
+ }
+
+
+ beginShape(); // Shoulder
+ for(let i = 0; i <=morphShoulderY.length; i++ ){
+   curveVertex( morphShoulderX[i],morphShoulderY[i])
+ }
+ 
+ endShape(CLOSE);
+
   ellipse(x-35,y-13,77.6,70.8); // cranium
 
-  let gumX = map(animation.wave(1), 0, 1,y-14,y-3)
+  let gumX = map(anim, 0, 1,y-14,y-3)
   ellipse(gumX,y+30,38,24); // gums
   
 
 
-  fill(255,233,62)
-  stroke(255,233,62)
+
+  fill(colour1)
+  stroke(colour1)
   
   let goblinCheekX = [x+8.5, x-14.5];  //Cheek
   let goblinCheekY = [y+17.5, y+28.5]
@@ -44,11 +99,11 @@ function faces(x, y, animation, pScope){
   
   let morphCheekY = [];
   for(let i = 0; i <=humanCheekY.length; i++ ){
-  morphCheekY[i] = map(animation.wave(1),  0 , 1, humanCheekY[i], goblinCheekY[i])
+  morphCheekY[i] = map(anim,  0 , 1, humanCheekY[i], goblinCheekY[i])
   };
   let morphCheekX = [];
   for(let i = 0; i <=humanCheekX.length; i++ ){
-  morphCheekX[i] = map(animation.wave(1),  0 , 1, humanCheekX[i], goblinCheekX[i])
+  morphCheekX[i] = map(anim,  0 , 1, humanCheekX[i], goblinCheekX[i])
   };
 
  
@@ -70,11 +125,11 @@ stroke(0)
   
   let morphNoseY = []
   for(let i = 0; i <=humanNoseY.length; i++ ){
-  morphNoseY[i] = map(animation.wave(1),  0 , 1, humanNoseY[i], goblinNoseY[i])
+  morphNoseY[i] = map(anim,  0 , 1, humanNoseY[i], goblinNoseY[i])
   }
   let morphNoseX = []
   for(let i = 0; i <=humanNoseX.length; i++ ){
-  morphNoseX[i] = map(animation.wave(1),  0 , 1, humanNoseX[i], goblinNoseX[i])
+  morphNoseX[i] = map(anim,  0 , 1, humanNoseX[i], goblinNoseX[i])
   }
 
 
@@ -94,11 +149,11 @@ stroke(0)
   
   let morphULipY = []
   for(let i = 0; i <=humanULipY.length; i++ ){
-  morphULipY[i] = map(animation.wave(1),  0 , 1, humanULipY[i], goblinULipY[i])
+  morphULipY[i] = map(anim,  0 , 1, humanULipY[i], goblinULipY[i])
   }
   let morphULipX = []
   for(let i = 0; i <=humanULipX.length; i++ ){
-  morphULipX[i] = map(animation.wave(1),  0 , 1, humanULipX[i], goblinULipX[i])
+  morphULipX[i] = map(anim,  0 , 1, humanULipX[i], goblinULipX[i])
   }
 
 
@@ -130,11 +185,11 @@ stroke(0)
   
   let morphLLipY = []
   for(let i = 0; i <=humanLLipY.length; i++ ){
-  morphLLipY[i] = map(animation.wave(1),  0 , 1, humanLLipY[i], goblinLLipY[i])
+  morphLLipY[i] = map(anim,  0 , 1, humanLLipY[i], goblinLLipY[i])
   }
   let morphLLipX = []
   for(let i = 0; i <=humanLLipX.length; i++ ){
-  morphLLipX[i] = map(animation.wave(1),  0 , 1, humanLLipX[i], goblinLLipX[i])
+  morphLLipX[i] = map(anim,  0 , 1, humanLLipX[i], goblinLLipX[i])
   }
 
 
@@ -146,6 +201,8 @@ stroke(0)
  
   endShape();
 
+  ellipse(x-9,y-1,15,9);
+
 
 
   let goblinBrowX = [x-20, x-20, x+5, x+8, x+2, x+2];  //Brow
@@ -156,11 +213,11 @@ stroke(0)
   
   let morphBrowY = []
   for(let i = 0; i <=humanBrowY.length; i++ ){
-  morphBrowY[i] = map(animation.wave(1),  0 , 1, humanBrowY[i], goblinBrowY[i])
+  morphBrowY[i] = map(anim,  0 , 1, humanBrowY[i], goblinBrowY[i])
   }
   let morphBrowX = []
   for(let i = 0; i <=humanBrowX.length; i++ ){
-  morphBrowX[i] = map(animation.wave(1),  0 , 1, humanBrowX[i], goblinBrowX[i])
+  morphBrowX[i] = map(anim,  0 , 1, humanBrowX[i], goblinBrowX[i])
   }
 
 
@@ -179,11 +236,11 @@ stroke(0)
 
   let morphEarY = []
   for(let i = 0; i <=humanEarY.length; i++ ){
-  morphEarY[i] = map(animation.wave(1),  0 , 1, humanEarY[i], goblinEarY[i])
+  morphEarY[i] = map(anim,  0 , 1, humanEarY[i], goblinEarY[i])
   }
   let morphEarX = []
   for(let i = 0; i <=humanEarX.length; i++ ){
-  morphEarX[i] = map(animation.wave(1),  0 , 1, humanEarX[i], goblinEarX[i])
+  morphEarX[i] = map(anim,  0 , 1, humanEarX[i], goblinEarX[i])
   }
   
   beginShape();// Ear
