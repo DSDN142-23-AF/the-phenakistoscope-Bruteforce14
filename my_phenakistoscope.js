@@ -1,7 +1,7 @@
 const SLICE_COUNT = 16;
 
 function setup_pScope(pScope){
-  pScope.output_mode(ANIMATED_DISK);
+  pScope.output_mode(OUTPUT_PRINT(A3));
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(false);
   pScope.set_direction(CCW);
@@ -11,7 +11,7 @@ function setup_pScope(pScope){
 
 function setup_layers(pScope){
 
-  new PLayer(null, 220);  //lets us draw the whole circle background, ignoring the boundaries
+  new PLayer(null, 0);  //lets us draw the whole circle background, ignoring the boundaries
 
   var layer1 = new PLayer(faces);
   layer1.mode( RING );
@@ -25,9 +25,12 @@ function setup_layers(pScope){
 function faces(x, y, animation, pScope){
 
   let anim = animation.wave(1);
-  let yellow = (255,233,62)
+  let pink= color(255,62,181);
+  let yellow = color(255,233,0);
+  let white = color(255);
+  let black = color(0);
 
-  let colour1 = yellow
+  let colour1 = white
   translate(0,-850);
   //scale(animation.wave(0.5)*2);//
  scale(2)
