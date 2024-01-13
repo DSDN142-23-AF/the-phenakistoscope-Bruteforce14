@@ -1,25 +1,27 @@
 const SLICE_COUNT = 16;
 
 function setup_pScope(pScope){
-  pScope.output_mode(OUTPUT_PRINT(A3));
+  pScope.output_mode(ANIMATED_DISK);
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(false);
-  pScope.set_direction(CCW);
+  pScope.set_direction(CW);
   pScope.set_slice_count(SLICE_COUNT);
-  pScope.load_image("Goblin Gums" , "PNG");
+  pScope.load_image("Gums" , "PNG");
+  pScope.load_image("Shadin" , "PNG");
+  pScope.load_image("Massk" , "PNG");
 }
 
 function setup_layers(pScope){
 
-  new PLayer(null, 0);  //lets us draw the whole circle background, ignoring the boundaries
+  new PLayer(null,50);  //lets us draw the whole circle background, ignoring the boundaries
 
   var layer1 = new PLayer(faces);
   layer1.mode( RING );
   layer1.set_boundary( 500, 600 );
 
-  /*var layer2 = new PLayer(squares);
+  var layer2 = new PLayer(squares);
   layer2.mode( RING );
-  layer2.set_boundary( 0, 400 );*/
+  layer2.set_boundary( 0, 400 );  
 }
 
 function faces(x, y, animation, pScope){
@@ -30,7 +32,8 @@ function faces(x, y, animation, pScope){
   let white = color(255);
   let black = color(0);
 
-  let colour1 = white
+  let colour1 = lerpColor(white, yellow, anim)
+  let colour2 = lerpColor(pink, black, anim)
   translate(0,-850);
   //scale(animation.wave(0.5)*2);//
  scale(2)
@@ -60,6 +63,7 @@ function faces(x, y, animation, pScope){
  
  endShape(CLOSE);
 
+ fill(colour2)
  let goblinShoulderX = [x-125, x-128, x-107, x-93, x-55, x-32, x-20, x-24]; //Shoulder
  let goblinShoulderY = [y+111, y+108, y+48, y+33, y+48, y+75, y+108, y+109]; 
 
@@ -82,11 +86,13 @@ function faces(x, y, animation, pScope){
  }
  
  endShape(CLOSE);
+ 
+ fill(colour1)
 
   ellipse(x-35,y-13,77.6,70.8); // cranium
 
   let gumX = map(anim, 0, 1,y-14,y-3)
-  ellipse(gumX,y+30,38,24); // gums
+  pScope.draw_image("Gums",gumX,y+30); // gums
   
 
 
@@ -204,9 +210,11 @@ stroke(0)
  
   endShape();
 
+  fill(white)
+
   ellipse(x-9,y-1,15,9);
 
-
+  fill(colour1)
 
   let goblinBrowX = [x-20, x-20, x+5, x+8, x+2, x+2];  //Brow
   let goblinBrowY = [y-2, y-2, y-6, y-10, y-15, y-15]; 
@@ -252,19 +260,21 @@ stroke(0)
     curveVertex( morphEarX[i],morphEarY[i])
   }
   endShape();
+
+
 }
 
 function squares(x, y, animation, pScope){
-
-  // this is how you set up a background for a specific layer
-  let angleOffset = (360 / SLICE_COUNT) / 2
-  let backgroundArcStart = 270 - angleOffset;
-  let backgroundArcEnd = 270 + angleOffset;
-
-  fill(66, 135, 245)
-  arc(x,y,800,800,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
-
-  fill(255)
-  rect(-10,-300-animation.wave()*50,20,20) // .wave is a cosine wave btw
+  push()
+  scale(.635)
+  if(animation.frame == 0){
+    
+    pScope.draw_image("Shadin",x,y);
+    pScope.draw_image("Massk",x,y);
+    stroke(0)
+    ellipse(300,300,x,y);
+    }
+    pop()
+ 
 
 }
